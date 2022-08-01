@@ -53,14 +53,14 @@ app.get('/curso_exp/:id',(req,res)=>{
 });
 
 // CREATE salvar pessoa no banco
-app.post('/curso_exp/salvar',(req,res)=>{
+app.post('/curso_exp',(req,res)=>{
     let person = req.body;
     var sql = "SET @ID = ?; SET @user_name = ?;SET @exp = ?;CALL salvar(@ID,@user_name,@exp);";
     mysqlConnection.query(sql,[person.ID,person.user_name,person.exp],(err, rows, fields)=>{
         if (!err)
         rows.forEach(element => {
             if(element.constructor == Array)
-            res.send('Pessoa registrada id: '+element[0].id);
+            res.send('Pessoa registrada id: '+element[0].ID);
         });
         else
         console.log(err);
@@ -68,14 +68,14 @@ app.post('/curso_exp/salvar',(req,res)=>{
 });
 
 // UPDATE editar pessoa no banco
-app.put('/curso_exp/editar',(req,res)=>{
+app.put('/curso_exp',(req,res)=>{
     let person = req.body;
     var sql = "SET @ID = ?; SET @user_name = ?;SET @exp = ?;CALL salvar(@ID,@user_name,@exp);";
-    mysqlConnection.query(sql,[person.id,person.user,person.exp],(err, rows, fields)=>{
+    mysqlConnection.query(sql,[person.ID,person.user_name,person.exp],(err, rows, fields)=>{
         if (!err)
         rows.forEach(element => {
             if(element.constructor == Array)
-            res.send('Pessoa Atualizada id: '+element[0].id);
+            res.send('Pessoa Atualizada id: '+element[0].ID);
         });
         else
         console.log(err);
